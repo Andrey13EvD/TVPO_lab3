@@ -9,19 +9,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest
-    
-    - name: Run tests
-      run: pytest ./.github/workflows/test_bank_interest.py
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+        
+      - name: Add project root to PYTHONPATH
+        run: export PYTHONPATH=$PYTHONPATH:/home/runner/work/TVPO_lab3
+      
+      - name: Run tests
+        run: pytest ./.github/workflows/test_bank_interest.py
