@@ -1,5 +1,5 @@
 import main
-#test
+#test1
 
 def test_result():
     bank = main.BankInterest(100000, 2, 10)
