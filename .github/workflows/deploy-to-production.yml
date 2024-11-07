@@ -8,11 +8,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      DOCKER_REGISTRY_URL: https://registry.hub.docker.com/v2/
     steps:
       - uses: actions/checkout@v2
+      - name: Set environment variable
+        env:
+          DOCKER_REGISTRY_URL: https://registry.hub.docker.com/v2/
       - name: Login to Docker Registry
+        env:
+          DOCKER_REGISTRY_URL: ${{ env.DOCKER_REGISTRY_URL }}
         run: |
           echo ${{ secrets.DOCKER_REGISTRY_PASSWORD }} | docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} --password-stdin ${{ DOCKER_REGISTRY_URL }}
       - name: Check Docker login status
