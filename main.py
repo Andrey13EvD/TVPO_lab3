@@ -23,8 +23,3 @@ class BankInterest(object):
         mp = self.summ * ak
         total = mp * mp_cnt
         return round(mp, 2), round(total, 2)
-
-
-if __name__ == '__main__':
-    bank = BankInterest(100000, 2, 10)
-    print(bank.ann_int())
