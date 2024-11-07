@@ -8,11 +8,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY_URL: https://registry.hub.docker.com/v2/
     steps:
       - uses: actions/checkout@v2
       - name: Login to Docker Registry
         run: |
-          echo ${{ secrets.DOCKER_REGISTRY_PASSWORD }} | docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} --password-stdin https://registry.hub.docker.com/v2/
+          echo ${{ secrets.DOCKER_REGISTRY_PASSWORD }} | docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} --password-stdin ${DOCKER_REGISTRY_URL}
+      - name: Check Docker login status
+        run: docker info
+      - name: Clean Docker cache
+        run: docker builder prune -f
       - name: Build Docker image
         run: docker build -t neutron13evd/twpo3:$GITHUB_SHA .
       - name: Push Docker image
