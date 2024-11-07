@@ -1,0 +1,26 @@
+stages:
+  - test
+  - deploy
+
+test-job:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get install sudo
+    - sudo apt-get --yes install python-pytest
+  script:
+    - pytest test_file.py
+
+
+deploy-job:
+  stage: deploy
+  before_script:
+    - apt-get update
+    - apt-get install sudo
+    - sudo apt-get --yes install rsync
+    - sudo mkdir -p /var/www/project
+  script:
+    - echo "Deploing aplication..."
+    - pwd
+    - rsync -av --no-perms --no-owner --no-group --exclude ".git*" $CI_PROJECT_DIR/ /var/www/project
+    - echo "Succesully deployed"
