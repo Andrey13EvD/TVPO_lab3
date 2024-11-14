@@ -1,6 +1,5 @@
 class BankInterest(object):
 
-    #тестовое изменение кода для коммита
     def __init__(self, summ, period, perc):
         self.summ = summ
         self.period = period
@@ -25,3 +24,5 @@ class BankInterest(object):
         mp = self.summ * ak
         total = mp * mp_cnt
         return round(mp, 2), round(total, 2)
+
+    #test
